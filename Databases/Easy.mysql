@@ -44,3 +44,17 @@ DELETE P FROM Person P
 JOIN Person E
 WHERE P.email = E.email
 AND P.id > E.id;
+
+
+#197. Rising Temperature
+
+SELECT w1.Id
+FROM weather w1, weather w2
+WHERE DATE_SUB(w1.recordDate, interval 1 Day) = w2.recordDate 
+AND w1.temperature > w2.temperature;
+
+SELECT w1.id
+FROM Weather w1, Weather w2
+WHERE w1.temperature > w2.temperature 
+AND DATEDIFF(w1.recordDate, w2.recordDate) =1;
+
