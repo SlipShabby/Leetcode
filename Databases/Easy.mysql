@@ -37,3 +37,10 @@ FROM Customers C
 WHERE NOT EXISTs (
     SELECT * FROM Orders O
     WHERE C.id = O.customerId);
+
+# 196. Delete Duplicate Emails
+
+DELETE P FROM Person P
+JOIN Person E
+WHERE P.email = E.email
+AND P.id > E.id;
