@@ -1,0 +1,14 @@
+
+# Combine 2 tables
+
+SELECT firstName, lastName, City, state
+FROM    Person
+LEFT JOIN Address
+ON  Person.personId = Address.personId;
+
+# 181. Employees Earning More Than Their Managers
+
+SELECT E.name AS 'Employee'
+FROM Employee AS E, Employee AS M
+WHERE E.managerId = M.Id AND E.salary > M.salary;
+
