@@ -12,3 +12,28 @@ SELECT E.name AS 'Employee'
 FROM Employee AS E, Employee AS M
 WHERE E.managerId = M.Id AND E.salary > M.salary;
 
+# 182. Duplicate Emails
+
+SELECT email AS 'Email'
+FROM Person
+GROUP BY email
+HAVING COUNT(*) > 1;
+
+# 183. Customers Who Never Order
+
+SELECT name AS 'Customers'
+FROM Customers C
+LEFT JOIN Orders O
+ON O.customerId = C.id
+WHERE o.id IS Null;
+
+SELECT name AS 'Customers'
+FROM Customers C
+WHERE C.id NOT IN (
+    SELECT O.customerId FROM Orders O);
+
+SELECT name AS 'Customers'
+FROM Customers C
+WHERE NOT EXISTs (
+    SELECT * FROM Orders O
+    WHERE C.id = O.customerId);
