@@ -69,3 +69,11 @@ SELECT class
 FROM Courses
 GROUP BY class
 HAVING COUNT(student)>=5;
+
+# not boring movies
+
+SELECT id, movie, description, rating
+FROM Cinema
+WHERE description != 'boring'
+    AND ID%2 != 0
+ORDER BY rating DESC;
