@@ -77,3 +77,13 @@ FROM Cinema
 WHERE description != 'boring'
     AND ID%2 != 0
 ORDER BY rating DESC;
+
+# update f/M
+UPDATE salary
+SET sex = IF(sex='f', 'm', 'f');
+
+UPDATE salary
+SET sex = CASE sex
+    WHEN 'f' THEN 'm'
+    ELSE 'm'
+    END;
