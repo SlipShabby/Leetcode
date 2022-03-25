@@ -82,41 +82,64 @@ AND
 
 #197. Rising Temperature
 
-SELECT w1.Id
-FROM weather w1, weather w2
-WHERE DATE_SUB(w1.recordDate, interval 1 Day) = w2.recordDate 
-AND w1.temperature > w2.temperature;
+SELECT 
+    w1.Id
+FROM
+    weather w1, 
+    weather w2
+WHERE
+    DATE_SUB(w1.recordDate, interval 1 Day) = w2.recordDate 
+    AND w1.temperature > w2.temperature;
 
-SELECT w1.id
-FROM Weather w1, Weather w2
-WHERE w1.temperature > w2.temperature 
-AND DATEDIFF(w1.recordDate, w2.recordDate) =1;
+SELECT 
+    w1.id
+FROM 
+    Weather w1, Weather w2
+WHERE 
+    w1.temperature > w2.temperature 
+    AND DATEDIFF(w1.recordDate, w2.recordDate)=1;
 
 # big country
 
-SELECT name, population, area
-FROM World
-WHERE area >=3000000 OR population >=25000000;
+SELECT 
+    name, 
+    population, 
+    area
+FROM 
+    World
+WHERE 
+    area >=3000000 
+    OR population >=25000000;
 
 # classes with more than 5 students
-SELECT class
-FROM Courses
-GROUP BY class
+SELECT 
+    class
+FROM 
+    Courses
+GROUP BY 
+    class
 HAVING COUNT(student)>=5;
 
 # not boring movies
 
-SELECT id, movie, description, rating
-FROM Cinema
-WHERE description != 'boring'
+SELECT 
+    id, movie, description, rating
+FROM 
+    Cinema
+WHERE 
+    description != 'boring'
     AND ID%2 != 0
-ORDER BY rating DESC;
+ORDER BY 
+    rating DESC;
 
 # update f/M
-UPDATE salary
-SET sex = IF(sex='f', 'm', 'f');
+UPDATE 
+    salary
+SET 
+    sex = IF(sex='f', 'm', 'f');
 
-UPDATE salary
+UPDATE 
+    salary
 SET sex = CASE sex
     WHEN 'f' THEN 'm'
     ELSE 'm'
@@ -200,3 +223,33 @@ WHERE
     AND 
         '2019-03-31'
 );
+
+
+# game analysis
+
+SELECT 
+    player_id, min(event_date) as first_login
+FROM
+    Activity
+GROUP BY 
+    player_id;
+
+
+# group sold by date 
+
+
+SELECT 
+    sell_date, 
+    COUNT(DISTINCT product) 
+        AS num_sold,
+    GROUP_CONCAT(
+        DISTINCT 
+            product
+        ORDER BY 
+            product ASC
+                )
+        AS products
+FROM 
+    Activities
+GROUP BY 
+    sell_date;
