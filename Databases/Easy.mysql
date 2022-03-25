@@ -401,3 +401,29 @@ SELECT
     IF(employee_id%2=0 OR name LIKE'M%',0,salary) AS bonus
 FROM 
     Employees;
+
+
+
+# bank account summary
+SELECT
+    u.name,
+    SUM(t.amount) AS balance
+FROM
+    Users u
+LEFT JOIN
+    Transactions t
+    USING(account)
+GROUP BY
+    u.name
+HAVING
+    balance >= 10000;
+
+# fix names in the tables
+
+SELECT
+    user_id,
+    CONCAT(UPPER(SUBSTR(name,1,1)),LOWER(SUBSTR(name,2))) as name
+FROM 
+    Users
+ORDER BY 
+    user_id;
