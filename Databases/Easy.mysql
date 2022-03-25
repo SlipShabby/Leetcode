@@ -454,3 +454,13 @@ GROUP BY
     user_id
 ORDER BY
     user_id;
+
+# total time spend by employee
+
+SELECT 
+    event_day AS day,
+    emp_id,
+    SUM(out_time - in_time) as total_time
+FROM
+    Employees
+GROUP BY day, emp_id;
