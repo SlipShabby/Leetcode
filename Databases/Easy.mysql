@@ -307,3 +307,34 @@ FROM
     Patients
 WHERE 
     conditions REGEXP '^DIAB1| DIAB1';
+
+
+# visits without orders
+
+SELECT 
+    customer_id,
+    COUNT(visit_id) AS count_no_trans
+FROM
+    Visits v
+WHERE
+    visit_id NOT IN
+    (
+        SELECT 
+            visit_id
+        FROM 
+            Transactions
+    )
+GROUP BY
+    customer_id;
+
+SELECT 
+    customer_id,
+    COUNT(visit_id) AS count_no_trans
+FROM
+    Visits v
+LEFT JOIN
+    Transactions t USING (visit_id)
+WHERE 
+    t.amount IS NULL
+GROUP BY
+    customer_id;
