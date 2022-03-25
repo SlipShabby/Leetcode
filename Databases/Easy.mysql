@@ -297,3 +297,13 @@ WHERE
     DATEDIFF('2019-07-27', activity_date) < 30
 GROUP BY
     day;
+
+
+# patients with diab
+
+SELECT 
+    * 
+FROM 
+    Patients
+WHERE 
+    conditions REGEXP '^DIAB1| DIAB1';
