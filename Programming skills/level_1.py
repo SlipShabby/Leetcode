@@ -24,3 +24,13 @@ class SolutionAverageSalary(object):
 
             
         return float(total)/float((n-2))
+
+
+class SolutionAvgSalary1(object):
+    def average(self, salary):
+        return float(sum(sorted(salary)[1:-1])) / float(len(salary)-2)
+
+
+class SolutionAvgSalary2(object):
+    def average(self, salary):
+        return float(sum(salary)-min(salary)-max(salary)) / float(len(salary)-2)
