@@ -1,49 +1,83 @@
 
 # Combine 2 tables
 
-SELECT firstName, lastName, City, state
-FROM    Person
-LEFT JOIN Address
-ON  Person.personId = Address.personId;
+SELECT 
+    firstName, lastName, City, state
+FROM
+    Person
+LEFT JOIN
+    Address
+ON
+    Person.personId = Address.personId;
 
 # 181. Employees Earning More Than Their Managers
 
-SELECT E.name AS 'Employee'
-FROM Employee AS E, Employee AS M
-WHERE E.managerId = M.Id AND E.salary > M.salary;
+SELECT 
+    E.name AS 'Employee'
+FROM 
+    Employee AS E, Employee AS M
+WHERE 
+    E.managerId = M.Id 
+AND
+    E.salary > M.salary;
 
 # 182. Duplicate Emails
 
-SELECT email AS 'Email'
-FROM Person
-GROUP BY email
+SELECT 
+    email AS 'Email'
+FROM 
+    Person
+GROUP BY 
+    email
 HAVING COUNT(*) > 1;
 
 # 183. Customers Who Never Order
 
-SELECT name AS 'Customers'
-FROM Customers C
-LEFT JOIN Orders O
-ON O.customerId = C.id
-WHERE o.id IS Null;
+SELECT 
+    name AS 'Customers'
+FROM 
+    Customers C
+LEFT JOIN 
+    Orders O
+ON 
+    O.customerId = C.id
+WHERE 
+    o.id IS Null;
 
-SELECT name AS 'Customers'
-FROM Customers C
-WHERE C.id NOT IN (
-    SELECT O.customerId FROM Orders O);
+SELECT 
+    name AS 'Customers'
+FROM 
+    Customers C
+WHERE 
+    C.id NOT IN (
+            SELECT 
+                O.customerId 
+            FROM 
+                Orders O);
 
-SELECT name AS 'Customers'
-FROM Customers C
+SELECT 
+    name AS 'Customers'
+FROM 
+    Customers C
 WHERE NOT EXISTs (
-    SELECT * FROM Orders O
-    WHERE C.id = O.customerId);
+    SELECT * 
+    FROM 
+        Orders O
+    WHERE 
+        C.id = O.customerId);
 
 # 196. Delete Duplicate Emails
 
-DELETE P FROM Person P
-JOIN Person E
-WHERE P.email = E.email
-AND P.id > E.id;
+DELETE 
+    P 
+FROM 
+    Person P
+JOIN 
+    Person E
+WHERE 
+    P.email = E.email
+AND 
+    P.id > E.id;
 
 
 #197. Rising Temperature
@@ -144,3 +178,25 @@ SELECT actor_id, director_id
 FROM ActorDirector
 GROUP BY actor_id, director_id
 HAVING COUNT(*) >=3;
+
+
+# product sold only in spring time
+
+SELECT 
+    product_id, product_name
+FROM 
+    Product p
+WHERE 
+    product_id NOT IN 
+(
+    SELECT 
+        product_id
+    FROM 
+        Sales s
+    WHERE 
+        s.sale_date 
+    NOT BETWEEN 
+        '2019-01-01' 
+    AND 
+        '2019-03-31'
+);
