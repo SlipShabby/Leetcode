@@ -24,3 +24,21 @@ IN
             departmentId
     );
 
+
+# Consecutive Numbers
+
+SELECT
+    DISTINCT num AS ConsecutiveNums
+FROM
+    (
+        SELECT
+            id, 
+            num,
+        lead(num) over (order by id) as next,
+        lag(num) over (order by id) as prior
+        FROM
+            Logs
+    ) next_prior
+WHERE
+    num = next AND num = prior;
+
