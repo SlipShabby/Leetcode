@@ -96,4 +96,19 @@ SELECT
 FROM 
     Scores
 ORDER BY 
-    Score desc
+    Score desc;
+
+
+# second highest salary
+
+SELECT
+    Max(salary) AS SecondHighestSalary
+FROM 
+    Employee
+WHERE
+    salary NOT IN
+(
+    SELECT
+        MAX(salary)
+    FROM Employee e1
+);
