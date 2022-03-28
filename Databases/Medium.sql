@@ -126,3 +126,21 @@ SELECT
       ),
     NULL
     ) AS SecondHighestSalary;
+
+
+# find nth salary
+
+CREATE FUNCTION getNthHighestSalary(N INT)
+    RETURNS INT
+BEGIN
+DECLARE M INT; 
+SET M=N-1;
+    RETURN
+    (
+        SELECT
+            DISTINCT salary
+            FROM Employee
+            ORDER BY Salary Desc
+            LIMIT 1 OFFSET M
+    );
+END
