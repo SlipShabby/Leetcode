@@ -62,3 +62,17 @@ WHERE
                     Logs
             );
 
+# Rank Scores
+
+SELECT
+    a.score,
+    COUNT(b.score) AS 'rank'
+FROM Scores a,
+    (
+        SELECT DISTINCT Score
+        FROM
+            Scores
+    ) b
+WHERE a.score <= b.score
+GROUP BY a.id, a.score
+ORDER BY a.score DESC;
