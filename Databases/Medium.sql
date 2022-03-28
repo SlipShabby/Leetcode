@@ -76,3 +76,24 @@ FROM Scores a,
 WHERE a.score <= b.score
 GROUP BY a.id, a.score
 ORDER BY a.score DESC;
+
+
+SELECT
+  Score,
+  (
+      SELECT
+        COUNT(*)
+      FROM 
+      (
+          SELECT 
+            distinct Score s 
+          FROM 
+            Scores
+      ) tmp 
+      WHERE
+        s >= Score
+  ) 'Rank'
+FROM 
+    Scores
+ORDER BY 
+    Score desc
