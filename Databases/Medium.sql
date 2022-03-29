@@ -144,3 +144,19 @@ SET M=N-1;
             LIMIT 1 OFFSET M
     );
 END
+
+
+
+
+# Tree
+
+SELECT
+    DISTINCT t1.id,
+    (CASE WHEN t1.p_id IS NULL THEN 'Root'
+     WHEN t2.id IS NULL THEN 'Leaf' ELSE 'Inner' END
+     ) Type
+FROM
+    Tree t1
+LEFT JOIN
+    Tree t2
+ON t1.id = t2.p_id;
