@@ -193,4 +193,20 @@ AND
     o.order_date LIKE '2019%'
 GROUP BY 
     u.user_id;
+
+
+# Capital gains
+
+SELECT 
+    stock_name,
+    SUM(
+        CASE WHEN operation = 'Buy'
+        THEN -price
+        ELSE price
+        END
+    ) AS capital_gain_loss
+FROM 
+    Stocks
+GROUP BY 
+    stock_name;
     
