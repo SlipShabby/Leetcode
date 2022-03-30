@@ -237,4 +237,57 @@ WHERE
                 Visits 
             GROUP BY r
             HAVING COUNT(r) >= 3
-    )
+    );
+
+# v2
+
+WITH visits AS(
+    SELECT *,
+        ROW_NUMBER() OVER(ORDER BY id) as row_id
+    FROM
+        (
+            SELECT *
+            FROM Stadium
+            WHERE people >= 100
+        ) t
+)
+
+SELECT id, visit_date, people
+FROM Stadium,
+    (
+        SELECT 
+            min(id) m, 
+            max(id) n 
+        FROM
+            visits
+        GROUP BY 
+            id - row_id 
+            HAVING COUNT(id-row_id) >=3
+    ) t
+WHERE id 
+    BETWEEN m AND n;
+
+# Department Top Three Salaries
+
+SELECT 
+    d1.name AS Department,
+    e1.name AS Employee,
+    e1.salary AS Salary
+FROM 
+    Employee e1
+JOIN
+    Department d1
+ON 
+    e1.departmentId = d1.id
+JOIN
+    Department d2
+ON d1.id = d2.id
+
+LEFT JOIN
+    Employee e2
+ON 
+    d2.id = e2.departmentId
+AND
+    e1.salary < e2.salary
+GROUP BY d1.name, e1.name, e1.salary
+HAVING COUNT(DISTINCT(E2.salary)) <3;
