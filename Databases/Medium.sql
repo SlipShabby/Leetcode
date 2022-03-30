@@ -209,4 +209,32 @@ FROM
     Stocks
 GROUP BY 
     stock_name;
-    
+
+
+
+#  Human Traffic of Stadium
+
+WITH Visits AS (
+    SELECT id,
+        visit_date, 
+        people, 
+        id - ROW_NUMBER() OVER(ORDER BY id) r
+    FROM Stadium
+    WHERE people >= 100
+)
+
+SELECT 
+    id, 
+    visit_date, 
+    people
+FROM 
+    Visits
+WHERE 
+    r IN (
+            SELECT 
+                r 
+            FROM
+                Visits 
+            GROUP BY r
+            HAVING COUNT(r) >= 3
+    )
