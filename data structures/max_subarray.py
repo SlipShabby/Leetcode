@@ -18,3 +18,15 @@ class Solution(object):
                 nums[i] += nums[i-1]
             
         return max(nums)
+
+
+class Solution2(object):
+    def maxSubArray(self, nums):
+        cur_max = nums[0]
+        max_sum = 0
+
+        for num in nums[1:]:
+            cur_max = max(i, cur_max+num)
+            max_sum = max(cur_max, max_sum)
+
+        return max_sum

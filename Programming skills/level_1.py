@@ -34,3 +34,22 @@ class SolutionAvgSalary1(object):
 class SolutionAvgSalary2(object):
     def average(self, salary):
         return float(sum(salary)-min(salary)-max(salary)) / float(len(salary)-2)
+
+
+# intersection of 2 arrays
+
+from collections import Counter
+
+
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        
+        n1 = Counter(nums1)
+        n2 = Counter(nums2)
+        n3 = n1 & n2
+        return list(n3.elements())
