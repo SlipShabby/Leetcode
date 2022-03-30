@@ -291,3 +291,27 @@ AND
     e1.salary < e2.salary
 GROUP BY d1.name, e1.name, e1.salary
 HAVING COUNT(DISTINCT(E2.salary)) <3;
+
+
+# Trips and Users
+
+WITH t AS (
+    SELECT
+        request_at,
+        T.status <> 'completed' AS Cancelled
+    FROM 
+        Trips T
+    JOIN Users C ON (Client_Id = C.users_id and C.banned = 'No') 
+    JOIN Users D ON (Driver_Id = D.users_id and D.banned = 'No') 
+    WHERE
+        request_at BETWEEN '2013-10-01' AND '2013-10-03'
+)
+
+
+SELECT
+    request_at as Day,
+    ROUND(CAST(SUM(Cancelled) AS real) / CAST(COUNT(*) AS REAL),2)
+    AS 'Cancellation Rate'
+FROM
+    t
+GROUP BY request_at;
